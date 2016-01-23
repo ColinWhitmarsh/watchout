@@ -1,6 +1,8 @@
 var width = 960;
 var height = 500;
 var numberOfEnemies = 30;
+var currentScore = 0;
+var highScore = 0;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -8,13 +10,27 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(0,0)");
 
+
+d3.select("svg").append("defs")
+  .append('pattern')
+  .attr('id', 'asteroid')
+  .attr('patternUnits', 'userSpaceOnUse')
+  .attr('width', 20)
+  .attr('height', 20)
+  .append("image")
+  .attr("xlink:href", "asteroid.png")
+  .attr('width', 20)
+  .attr('height', 20);
+
+
 var enemyMaker = function() {
     d3.select("g").append('circle')
     .attr('class', 'enemy')
     .attr('fill','red')
     .attr('cx', Math.random() * width)
     .attr('cy', Math.random() * height)
-    .attr('r', 10);
+    .attr('r', 10)
+    .attr('fill', "url(#asteroid)");
   };
 
 var dragMove = function() {
@@ -62,19 +78,46 @@ var checkCollision = function (collidedCallback) {
   var hero = d3.selectAll('.hero');
   for (var i = 0; i < enemies[0].length; i++) {
     var enemy = d3.select(enemies[0][i]);
-    radiusSum = parseFloat(enemy.attr('r')) + hero.attr('r');
-    xDiff = parseFloat(enemy.attr('cx')) - hero.attr('cx');
-    yDiff = parseFloat(enemy.attr('cy')) - hero.attr('cy');
-    separation = Math.sqrt(Math.pow(xDiff,2) + Math.pow(yDiff,2));
+    radiusSum = parseFloat(enemy.attr('r')) + parseFloat(hero.attr('r'));
+    xDiff = parseFloat(enemy.attr('cx')) - parseFloat(hero.attr('cx'));
+    yDiff = parseFloat(enemy.attr('cy')) - parseFloat(hero.attr('cy'));
+    separation = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+    // debugger;
     if (separation < radiusSum) {
-      collidedCallback();
+      console.log('onCollision');
+      currentScore = 0;
     }
   }
 };
 
-var onCollision = function() {
-  updateBestScore();
-  gameStats.score = 0;
-  updateScore();
-  return checkCollision(onCollision);
-};
+// var onCollision = function() {
+//   // updateBestScore();
+//   currentScore = 0;
+//   // updateScore();
+//   // return checkCollision(onCollision);
+// };
+
+setInterval(function(){ 
+  d3.select(".current").text(currentScore);
+  d3.select(".highscore")
+  .text(function() { return currentScore > highScore ? highScore = currentScore : highScore; });
+  currentScore++;
+ }, 100);
+
+setInterval(function(){checkCollision();}, 100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
