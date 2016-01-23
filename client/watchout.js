@@ -8,13 +8,15 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
     .append("g")
+    .attr("width", width)
+    .attr("height", height)
     .attr("transform", "translate(0,0)");
 
 
 d3.select("svg").append("defs")
   .append('pattern')
   .attr('id', 'asteroid')
-  .attr('patternUnits', 'userSpaceOnUse')
+  .attr('patternUnits', 'objectBoundingBox')
   .attr('width', 20)
   .attr('height', 20)
   .append("image")
@@ -22,6 +24,15 @@ d3.select("svg").append("defs")
   .attr('width', 20)
   .attr('height', 20);
 
+d3.select("defs").append("pattern")
+  .attr('id', 'mike')
+  .attr('patternUnits', 'objectBoundingBox')
+  .attr('width', 20)
+  .attr('height', 20)
+  .append("image")
+  .attr("xlink:href", "mike.jpeg")
+  .attr('width', 20)
+  .attr('height', 20);
 
 var enemyMaker = function() {
     d3.select("g").append('circle')
@@ -49,6 +60,7 @@ var heroMaker = function() {
     .attr('cx', width / 2)
     .attr('cy', height / 2)
     .attr('r', 10)
+    .attr('fill', 'url(#mike)')
     .call(drag);
   };
 
@@ -89,13 +101,6 @@ var checkCollision = function (collidedCallback) {
     }
   }
 };
-
-// var onCollision = function() {
-//   // updateBestScore();
-//   currentScore = 0;
-//   // updateScore();
-//   // return checkCollision(onCollision);
-// };
 
 setInterval(function(){ 
   d3.select(".current").text(currentScore);
