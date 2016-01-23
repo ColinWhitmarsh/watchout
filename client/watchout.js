@@ -54,3 +54,27 @@ var enemyMover = function(enemyClass) {
 };
 
 setInterval(function(){enemyMover();}, 2000);
+
+var hero = d3.select(".hero");
+
+var checkCollision = function (collidedCallback) {
+  var enemies = d3.selectAll('.enemy');
+  var hero = d3.selectAll('.hero');
+  for (var i = 0; i < enemies[0].length; i++) {
+    var enemy = d3.select(enemies[0][i]);
+    radiusSum = parseFloat(enemy.attr('r')) + hero.attr('r');
+    xDiff = parseFloat(enemy.attr('cx')) - hero.attr('cx');
+    yDiff = parseFloat(enemy.attr('cy')) - hero.attr('cy');
+    separation = Math.sqrt(Math.pow(xDiff,2) + Math.pow(yDiff,2));
+    if (separation < radiusSum) {
+      collidedCallback();
+    }
+  }
+};
+
+var onCollision = function() {
+  updateBestScore();
+  gameStats.score = 0;
+  updateScore();
+  return checkCollision(onCollision);
+};
