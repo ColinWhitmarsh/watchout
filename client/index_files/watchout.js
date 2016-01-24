@@ -31,8 +31,8 @@ d3.select("defs").append("pattern")
   .attr('height', 120)
   .append("image")
   .attr("xlink:href", "mike.png")
-  .attr('width', 60)
-  .attr('height', 60);
+  .attr('width', 120)
+  .attr('height', 120);
 
 var enemyMaker = function() {
     d3.select("g").append('circle')
@@ -41,15 +41,7 @@ var enemyMaker = function() {
     .attr('cx', Math.random() * width)
     .attr('cy', Math.random() * height)
     .attr('r', 10)
-    .attr('fill', "url(#asteroid)")
-    // .append('animateTransform')
-    // .attr('attributeType', "xml")
-    // .attr('attributeName', "transform")
-    // .attr('type', "rotate")
-    // .attr('from', "0 360 270")
-    // .attr('to', '0 360 90')
-    // .attr('dur', "4s")
-    // .attr('repeatCount', "indefinite");
+    .attr('fill', "url(#asteroid)");
   };
 
 var dragMove = function() {
@@ -67,7 +59,7 @@ var heroMaker = function() {
     .attr('fill','green')
     .attr('cx', width / 2)
     .attr('cy', height / 2)
-    .attr('r', 30)
+    .attr('r', 60)
     .attr('fill', 'url(#mike)')
     .call(drag);
   };
