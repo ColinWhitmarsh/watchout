@@ -94,7 +94,7 @@ var checkCollision = function (collidedCallback) {
     xDiff = parseFloat(enemy.attr('cx')) - parseFloat(hero.attr('cx'));
     yDiff = parseFloat(enemy.attr('cy')) - parseFloat(hero.attr('cy'));
     separation = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-    // debugger;
+
     if (separation < radiusSum) {
       console.log('onCollision');
       currentScore = 0;
@@ -110,19 +110,4 @@ setInterval(function(){
  }, 100);
 
 setInterval(function(){checkCollision();}, 100);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

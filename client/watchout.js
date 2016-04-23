@@ -41,15 +41,7 @@ var enemyMaker = function() {
     .attr('cx', Math.random() * width)
     .attr('cy', Math.random() * height)
     .attr('r', 10)
-    .attr('fill', "url(#asteroid)")
-    // .append('animateTransform')
-    // .attr('attributeType', "xml")
-    // .attr('attributeName', "transform")
-    // .attr('type', "rotate")
-    // .attr('from', "0 360 270")
-    // .attr('to', '0 360 90')
-    // .attr('dur', "4s")
-    // .attr('repeatCount', "indefinite");
+    .attr('fill', "url(#asteroid)");
   };
 
 var dragMove = function() {
@@ -102,7 +94,6 @@ var checkCollision = function (collidedCallback) {
     xDiff = parseFloat(enemy.attr('cx')) - parseFloat(hero.attr('cx'));
     yDiff = parseFloat(enemy.attr('cy')) - parseFloat(hero.attr('cy'));
     separation = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-    // debugger;
     if (separation < radiusSum) {
       console.log('onCollision');
       currentScore = 0;
@@ -118,19 +109,3 @@ setInterval(function(){
  }, 100);
 
 setInterval(function(){checkCollision();}, 100);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
